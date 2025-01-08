@@ -61,9 +61,9 @@ function crearLinkDePago($monto, $descripcion) {
     return $response['payload']['url'];
 }
 
-// Recibir el valor y la descripción desde un formulario o una solicitud
-$monto = $_POST['monto'];
-$descripcion = $_POST['descripcion'];
+// Recibir el valor y la descripción desde la URL
+$monto = $_GET['monto'];
+$descripcion = $_GET['descripcion'];
 
 // Crear el link de pago
 $linkDePago = crearLinkDePago($monto, $descripcion);

@@ -23,14 +23,14 @@ Buscar en el código el elemento `li` que contiene el campo de cálculo del tota
 </li>
 ```
 
-### 2. Agregar el Botón de Pago
+### 2. Agregar el Enlace de Pago
 
 Agregar el enlace de pago justo después del input del total, dentro del mismo div:
 
 ```html
 <div id="cid_22" class="form-input-wide" data-layout="half"> 
   <input aria-labelledby="label_22" data-component="calculation" type="text" id="input_22" name="q22_total22" value="0" />
-  <a href="#" id="boldPayLink" target="_blank" class="form-submit-button" style="text-decoration:none; margin-left:10px;">Pagar con Bold</a>
+  <a href="#" id="boldPayLink" target="_blank" style="text-decoration:none; margin-left:10px;">Pagar con Bold</a>
 </div>
 ```
 
@@ -45,30 +45,11 @@ Agregar el siguiente script justo después del elemento `li` del total:
     var total = document.getElementById('input_22').value;
     var identificacion = document.getElementById('input_7').value;
     
-    // Crear formulario dinámico
-    var form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'linkredir.php';
-    form.target = '_blank';
-
-    // Campo monto
-    var montoInput = document.createElement('input');
-    montoInput.type = 'hidden';
-    montoInput.name = 'monto';
-    montoInput.value = total;
-    form.appendChild(montoInput);
-
-    // Campo descripción
-    var descInput = document.createElement('input');
-    descInput.type = 'hidden';
-    descInput.name = 'descripcion';
-    descInput.value = 'Curso Noviembre-' + identificacion;
-    form.appendChild(descInput);
-
-    // Agregar form al documento y enviarlo
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
+    // Generar el enlace con los parámetros en la URL
+    var link = 'linkredir.php?monto=' + encodeURIComponent(total) + '&descripcion=' + encodeURIComponent('Curso Noviembre-' + identificacion);
+    
+    // Redirigir al usuario al enlace generado
+    window.open(link, '_blank');
   });
 </script>
 ```
@@ -99,14 +80,12 @@ Nota: Reemplaza `TU_API_KEY_DE_BOLD` con tu API key real de Bold.
    - `input_22`: ID del campo total
    - `input_7`: ID del campo identificación
 
-2. El botón hereda los estilos de los botones del formulario usando la clase `form-submit-button`
-
-3. El enlace se abre en una nueva pestaña gracias al atributo `target="_blank"` y se evita la validación del formulario con el siguiente script:
+2. El enlace se abre en una nueva pestaña gracias al atributo `target="_blank"` y se evita la validación del formulario con el siguiente script:
 
 ```html
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var enlace = document.querySelector('#enlace_bold'); // Cambia '#enlace_bold' por el selector correcto del enlace
+    var enlace = document.querySelector('#boldPayLink');
     enlace.addEventListener('click', function(event) {
       event.preventDefault(); // Evita que el enlace siga su comportamiento predeterminado
       window.open(enlace.href, '_blank'); // Abre el enlace en una nueva pestaña
@@ -115,12 +94,12 @@ Nota: Reemplaza `TU_API_KEY_DE_BOLD` con tu API key real de Bold.
 </script>
 ```
 
-4. La descripción del pago se forma concatenando "Curso Noviembre-" con el número de identificación
+3. La descripción del pago se forma concatenando "Curso Noviembre-" con el número de identificación
 
-5. El script crea dinámicamente un formulario POST para enviar los datos a `linkredir.php`
+4. El script genera dinámicamente un enlace con los parámetros en la URL para enviar los datos a `linkredir.php`
 
 ## Personalización
 
 - Puedes modificar el texto "Pagar con Bold" cambiando el contenido del enlace
-- Puedes ajustar el estilo del botón modificando las propiedades CSS inline o agregando nuevas clases
-- Puedes modificar el formato de la descripción del pago editando la línea `descInput.value`
+- Puedes ajustar el estilo del enlace modificando las propiedades CSS inline o agregando nuevas clases
+- Puedes modificar el formato de la descripción del pago editando la línea `link = 'linkredir.php?monto=' + encodeURIComponent(total) + '&descripcion=' + encodeURIComponent('Curso Noviembre-' + identificacion);`

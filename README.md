@@ -15,10 +15,10 @@ Este proyecto implementa una integración entre formularios JotForm y el sistema
 ```
 curso_nov/
 ├── .env                    # Variables de entorno (API keys)
-├── index.php              # Formulario JotForm modificado
-├── linkredir.php          # Manejador de redirección a Bold
-├── instruccionesbold.md   # Guía de implementación
-└── README.md              # Este archivo
+├── index.html              # Formulario JotForm modificado
+├── linkredir.php           # Manejador de redirección a Bold
+├── instruccionesbold.md    # Guía de implementación
+└── README.md               # Este archivo
 ```
 
 ## Requisitos
@@ -35,11 +35,11 @@ curso_nov/
 ```
 BOLD_API_KEY=tu_api_key_aqui
 ```
-3. Ajustar los IDs de los campos en index.php según tu formulario JotForm
+3. Ajustar los IDs de los campos en index.html según tu formulario JotForm
 
 ## Uso
 
-El proyecto añade un botón "Pagar con Bold" junto al campo total en el formulario. Cuando el usuario hace clic:
+El proyecto añade un enlace "Pagar con Bold" junto al campo total en el formulario. Cuando el usuario hace clic:
 
 1. Se captura el monto total del formulario
 2. Se obtiene el ID del usuario
