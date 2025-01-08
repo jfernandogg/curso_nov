@@ -101,7 +101,19 @@ Nota: Reemplaza `TU_API_KEY_DE_BOLD` con tu API key real de Bold.
 
 2. El botón hereda los estilos de los botones del formulario usando la clase `form-submit-button`
 
-3. El enlace se abre en una nueva pestaña gracias al atributo `target="_blank"`
+3. El enlace se abre en una nueva pestaña gracias al atributo `target="_blank"` y se evita la validación del formulario con el siguiente script:
+
+```html
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var enlace = document.querySelector('#enlace_bold'); // Cambia '#enlace_bold' por el selector correcto del enlace
+    enlace.addEventListener('click', function(event) {
+      event.preventDefault(); // Evita que el enlace siga su comportamiento predeterminado
+      window.open(enlace.href, '_blank'); // Abre el enlace en una nueva pestaña
+    });
+  });
+</script>
+```
 
 4. La descripción del pago se forma concatenando "Curso Noviembre-" con el número de identificación
 
